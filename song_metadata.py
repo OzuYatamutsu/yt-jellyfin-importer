@@ -10,3 +10,4 @@ class SongMetadataLite:
     album: str
     recording_id: str
     release_id: str
+    album_art: bytes

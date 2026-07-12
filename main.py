@@ -14,15 +14,11 @@ def main(youtube_link: str):
     print("[2/5] Generating audio fingerprint and resolving initial metadata...")
     metadata = resolve_audio_fp(mp3_path)
     print(f"Audio fingerprint and metadata resolved: {metadata}")
-    print("[3/5] Resolving release id...")
-    album_name, release_id, release_year, length = resolve_release(metadata.recording_id)
-    metadata.album = album_name
-    metadata.release_id = release_id
-    metadata.release_year = release_year
-    metadata.length = length
-    print(f"Release id resolved: {release_id}")
+    print("[3/5] Resolving release...")
+    metadata = resolve_release(metadata.recording_id, metadata)
+    print(f"Release information resolved.")
     print("[4/5] Downloading cover art...")
-    metadata.album_art = download_cover_art(release_id)
+    metadata.album_art = download_cover_art(metadata.release_id)
     print(f"Cover art downloaded: {len(metadata.album_art)} bytes")
     print("[5/5] Writing ID3 tags...")
     write_id3_tags(metadata, mp3_path)

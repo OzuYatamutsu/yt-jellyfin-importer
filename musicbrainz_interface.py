@@ -1,10 +1,13 @@
+from song_metadata import SongMetadataLite
 from config import DOWNLOAD_LOCATION
 from requests import get
 
 
-def resolve_release(recording_id: str) -> tuple[str, str, str, int]:
+def resolve_release(recording_id: str, metadata: SongMetadataLite) -> SongMetadataLite:
     """
     Resolves the album name, release id, release year, and length of the given recording id.
+
+    Adds this information to the SongMetadataLite object and returns it.
     """
 
     url = f"https://musicbrainz.org/ws/2/recording/{recording_id}?inc=releases&fmt=json"
@@ -12,11 +15,13 @@ def resolve_release(recording_id: str) -> tuple[str, str, str, int]:
     response.raise_for_status()
     data = response.json()
 
-    if "releases" in data and len(data["releases"]) > 0:
-        return data["releases"][0]["title"], data["releases"][0]["id"], data["first-release-date"], data["length"]
-    else:
-        raise ValueError(f"No releases found for recording id {recording_id}")
+    metadata.album = data["releases"][0]["title"]
+    metadata.track_num = data["releases"][0]["media"][0]["tracks"][0]["number"]
+    metadata.release_id = data["releases"][0]["id"]
+    metadata.release_year = data["first-release-date"]
+    metadata.length = data["length"]
 
+    return metadata
 
 def get_cover_art_url(release_id: str) -> str:
     """

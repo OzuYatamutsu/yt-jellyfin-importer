@@ -17,6 +17,7 @@ def resolve_audio_fp(path_to_mp3: str) -> SongMetadataLite:
             title=title,
             artist=artist,
             album="",
+            album_art=b"",
             recording_id=recording_id,
             release_id=""
         )

@@ -1,5 +1,5 @@
 from song_metadata import SongMetadataLite
-from mutagen import ID3, TIT2, TPE1, TALB, APIC, TXXX
+from mutagen.id3 import ID3, TIT2, TPE1, TALB, APIC, TXXX
 
 
 def write_id3_tags(metadata: SongMetadataLite, mp3_path: str):

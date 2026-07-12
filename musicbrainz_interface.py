@@ -10,15 +10,17 @@ def resolve_release(recording_id: str, metadata: SongMetadataLite) -> SongMetada
     Adds this information to the SongMetadataLite object and returns it.
     """
 
-    url = f"https://musicbrainz.org/ws/2/recording/{recording_id}?inc=releases&fmt=json"
+    url = f"https://musicbrainz.org/ws/2/recording/{recording_id}?inc=releases+release-groups+artists+media+genres&fmt=json"
     response = get(url)
     response.raise_for_status()
     data = response.json()
 
     metadata.album = data["releases"][0]["title"]
     metadata.track_num = data["releases"][0]["media"][0]["tracks"][0]["number"]
+    metadata.album_artist = data["artist-credit"][0]["artist"]["name"]
     metadata.release_id = data["releases"][0]["id"]
     metadata.release_year = data["first-release-date"]
+    metadata.genres = [genre["name"] for genre in data.get("genres", [])]
     metadata.length = data["length"]
 
     return metadata

@@ -8,6 +8,8 @@ class SongMetadataLite:
     title: str
     artist: str
     album: str
+    album_artist: str
+    genres: list[str]
     track_num: int
     recording_id: str
     release_id: str

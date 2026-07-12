@@ -14,6 +14,9 @@ def main(youtube_link: str):
     print("[2/5] Generating audio fingerprint and resolving initial metadata...")
     metadata = resolve_audio_fp(mp3_path)
     print(f"Audio fingerprint and metadata resolved: {metadata}")
+    if not metadata:
+        print("No metadata found!! Aborting!!")
+        exit(1)
     print("[3/5] Resolving release...")
     metadata = resolve_release(metadata.recording_id, metadata)
     print(f"Release information resolved.")

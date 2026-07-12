@@ -2,9 +2,9 @@ from config import DOWNLOAD_LOCATION
 from requests import get
 
 
-def resolve_release(recording_id: str) -> str:
+def resolve_release(recording_id: str) -> tuple[str, str, str, int]:
     """
-    Resolves the album name and release id of the given recording id.
+    Resolves the album name, release id, release year, and length of the given recording id.
     """
 
     url = f"https://musicbrainz.org/ws/2/recording/{recording_id}?inc=releases&fmt=json"
@@ -13,7 +13,7 @@ def resolve_release(recording_id: str) -> str:
     data = response.json()
 
     if "releases" in data and len(data["releases"]) > 0:
-        return data["releases"][0]["title"], data["releases"][0]["id"]
+        return data["releases"][0]["title"], data["releases"][0]["id"], data["first-release-date"], data["length"]
     else:
         raise ValueError(f"No releases found for recording id {recording_id}")
 

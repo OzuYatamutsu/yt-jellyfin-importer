@@ -1,6 +1,6 @@
 from song_metadata import SongMetadataLite
-from config import ACOUSTID_API_KEY
 from acoustid import match
+import config
 
 
 def resolve_audio_fp(path_to_mp3: str) -> SongMetadataLite:
@@ -10,7 +10,7 @@ def resolve_audio_fp(path_to_mp3: str) -> SongMetadataLite:
     """
 
     for _, recording_id, title, artist in match(
-        ACOUSTID_API_KEY,
+        config.ACOUSTID_API_KEY,
         path_to_mp3
     ):
         return SongMetadataLite(

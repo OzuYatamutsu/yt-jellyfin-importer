@@ -1,5 +1,4 @@
 from song_metadata import SongMetadataLite
-from config import DOWNLOAD_LOCATION
 from requests import get
 
 

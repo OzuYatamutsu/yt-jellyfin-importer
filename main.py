@@ -1,13 +1,15 @@
 from yt_downloader import download_to_mp3
 from acoustid_interface import resolve_audio_fp
 from musicbrainz_interface import resolve_release, download_cover_art
-from config import DOWNLOAD_LOCATION
 from id3_interface import write_id3_tags
+from argparse import ArgumentParser
+from typing import Optional
 from os.path import basename
-from os import rename, getcwd
+from os import rename
+import config
 
 
-def main(youtube_link: str):
+def main(youtube_link: str, jellyfin_lib_location: Optional[str]):
     print("[1/5] Downloading and converting to mp3...")
     mp3_path = download_to_mp3(youtube_link)
     print(f"Downloaded to {mp3_path}")
@@ -26,17 +28,50 @@ def main(youtube_link: str):
     print("[5/5] Writing ID3 tags...")
     write_id3_tags(metadata, mp3_path)
     output_path = mp3_path.replace(basename(mp3_path), f"{metadata.artist} - {metadata.title}.mp3")
-    output_path = output_path.replace(DOWNLOAD_LOCATION, getcwd())
+    output_path = output_path.replace(config.DOWNLOAD_LOCATION, config.OUTPUT_LOCATION)
     rename(mp3_path, output_path)
     print(f"Done, completed mp3 file available at: {output_path}")
 
 
+def _set_config_from_args() -> None:
+    arg_parser = ArgumentParser()
+    arg_parser.add_argument("youtube_link")
+    arg_parser.add_argument(
+        "--jellyfin-library",
+        help=(
+            "If set, moves processed music to the proper directory "
+            "under this library root directory. For example, a value "
+            "of /lib/music and processed file of album=My Album, "
+            "artist=My Artist, song=My Song will be output to "
+            "/var/lib/My Artist/My Album/My Artist - My Song.mp3."
+        )
+    )
+    arg_parser.add_argument(
+        "--download-location",
+        help=(
+            "Where should we download intermediate files for processing? "
+            "(default: new temporary directory.)"
+        )
+    )
+    arg_parser.add_argument(
+        "--acoustid-api-key",
+        help=(
+            "API key to access the Acoustid API (required). By default, this is read from "
+            "ACOUSTID_API_KEY env variable, but can also be specified here. "
+            "If not specified, reads the API key from config.py."
+        )
+    )
+
+    args = arg_parser.parse_args()
+    config.YOUTUBE_LINK = args.youtube_link
+    if (args.jellyfin_library):
+        config.JELLYFIN_LIBRARY = args.jellyfin_library
+    if (args.download_location):
+        config.DOWNLOAD_LOCATION = args.download_location
+    if (args.acoustid_api_key):
+        config.ACOUSTID_API_KEY = args.acoustid_api_key
+
+
 if __name__ == "__main__":
-    import sys
-
-    if len(sys.argv) < 2:
-        print("Usage: python main.py <youtube_link>")
-        sys.exit(1)
-
-    youtube_link = sys.argv[1]
-    main(youtube_link)
+    _set_config_from_args()
+    main(config.YOUTUBE_LINK, config.JELLYFIN_LIBRARY)

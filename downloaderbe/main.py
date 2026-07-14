@@ -1,8 +1,8 @@
-from musicbrainz_interface import resolve_release, download_cover_art
-from jellyfin_interface import move_file_to_jellyfin_dir
-from acoustid_interface import resolve_audio_fp
-from yt_downloader import download_to_mp3
-from id3_interface import write_id3_tags
+from downloaderbe.musicbrainz_interface import resolve_release, download_cover_art
+from downloaderbe.jellyfin_interface import move_file_to_jellyfin_dir
+from downloaderbe.acoustid_interface import resolve_audio_fp
+from downloaderbe.yt_downloader import download_to_mp3
+from downloaderbe.id3_interface import write_id3_tags
 from argparse import ArgumentParser
 from typing import Optional
 from os.path import basename

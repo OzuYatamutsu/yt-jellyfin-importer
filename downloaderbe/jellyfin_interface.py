@@ -1,4 +1,4 @@
-from song_metadata import SongMetadataLite
+from downloaderbe.song_metadata import SongMetadataLite
 from pathlib import Path
 from shutil import move
 import config

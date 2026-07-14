@@ -1,4 +1,4 @@
-from song_metadata import SongMetadataLite
+from downloaderbe.song_metadata import SongMetadataLite
 from requests import get
 
 

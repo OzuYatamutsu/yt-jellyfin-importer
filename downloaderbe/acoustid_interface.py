@@ -1,4 +1,4 @@
-from song_metadata import SongMetadataLite
+from downloaderbe.song_metadata import SongMetadataLite
 from acoustid import match
 import config
 

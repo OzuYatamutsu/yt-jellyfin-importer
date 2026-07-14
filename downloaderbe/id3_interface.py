@@ -1,4 +1,4 @@
-from song_metadata import SongMetadataLite
+from downloaderbe.song_metadata import SongMetadataLite
 from mutagen.id3 import ID3, TIT2, TPE1, TALB, APIC, TXXX, TYER, TLEN, TPE2, TRCK, TCON
 
 

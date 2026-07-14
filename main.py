@@ -7,7 +7,7 @@ from id3_interface import write_id3_tags
 from argparse import ArgumentParser
 from typing import Optional
 from os.path import basename
-from os import rename
+from shutil import move
 import config
 
 
@@ -35,7 +35,7 @@ def main(youtube_link: str, jellyfin_lib_location: Optional[str]):
     write_id3_tags(metadata, mp3_path)
     output_path = mp3_path.replace(basename(mp3_path), f"{metadata.artist} - {metadata.title}.mp3")
     output_path = output_path.replace(config.DOWNLOAD_LOCATION, config.OUTPUT_LOCATION)
-    rename(mp3_path, output_path)
+    move(mp3_path, output_path)
     print(f"Done, completed mp3 file available at: {output_path}")
     
     if jellyfin_lib_location:

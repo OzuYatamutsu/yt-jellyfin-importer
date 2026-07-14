@@ -19,6 +19,6 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    path('', include('downloaderfe.urls)),
+    path('', include('downloaderfe.urls'))
 ]
 

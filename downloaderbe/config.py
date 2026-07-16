@@ -11,7 +11,7 @@ DOWNLOAD_LOCATION = TempDir().name
 OUTPUT_LOCATION = environ.get("OUTPUT_LOCATION", getcwd())
 
 # Should we move the completed file into jellyfin? (default=no)
-JELLYFIN_LIBRARY = None
+JELLYFIN_LIBRARY = environ.get("OUTPUT_LOCATION", None)
 
 # Get one from here: https://acoustid.org/new-application
 ACOUSTID_API_KEY = environ.get("ACOUSID_API_KEY", "XZNGU5OEIe") 

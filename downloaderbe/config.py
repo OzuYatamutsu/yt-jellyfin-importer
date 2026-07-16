@@ -14,4 +14,5 @@ OUTPUT_LOCATION = environ.get("OUTPUT_LOCATION", getcwd())
 JELLYFIN_LIBRARY = environ.get("JELLYFIN_LIBRARY", None)
 
 # Get one from here: https://acoustid.org/new-application
-ACOUSTID_API_KEY = environ.get("ACOUSID_API_KEY", "XZNGU5OEIe") 
+ACOUSTID_API_KEY = environ.get("ACOUSID_API_KEY", "<insert-api-key-here>")
+

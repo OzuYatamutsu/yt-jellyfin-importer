@@ -7,4 +7,3 @@ urlpatterns = [
     path("start/", views.start_job, name="start"),
     path("status/<int:job_id>/", views.status, name="status"),
 ]
-

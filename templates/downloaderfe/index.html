@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Download YouTube to Jellyfin!</title>
+    <title>YouTube -> Jellyfin downloader</title>
 
     <style>
         body {
@@ -42,7 +42,7 @@
 
 <body>
 
-<h1>Download YouTube to Jellyfin!</h1>
+<h1>YouTube -> Jellyfin downloader!! >:3</h1>
 
 <input
     id="url"
@@ -81,54 +81,40 @@ Download MP3
 
 <script>
 
-async function startDownload(){
-
-    const url=document.getElementById("url").value;
-
-    const response=await fetch("/start/",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
-            "X-CSRFToken":"{{ csrf_token }}"
+async function startDownload() {
+    const url = document.getElementById("url").value
+    const response = await fetch("/start/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
         },
-        body:JSON.stringify({
-            youtube:url
+        body: JSON.stringify({
+            link: url
         })
     });
 
-    const job=await response.json();
-
-    document.getElementById("progressContainer").style.display="block";
-
-    poll(job.id);
-
+    const job = await response.json()
+    document.getElementById("progressContainer").style.display = "block"
+    poll(job.id)
 }
 
-async function poll(id){
+async function poll(id) {
+    const response = await fetch(`/status/${id}`)
+    const status = await response.json()
 
-    const response=await fetch("/status/"+id+"/");
+    document.getElementById("status").innerText = status.log_line
+    document.getElementById("progress").value = status.percent
 
-    const status=await response.json();
-
-    document.getElementById("status").innerText=status.message;
-    document.getElementById("progress").value=status.percent;
-
-    if(status.finished){
-
-        document.getElementById("finished").style.display="block";
-
-        document.getElementById("song").innerText=
-            status.artist+" - "+status.title;
-
-        document.getElementById("download").href=status.download_url;
-
-        return;
+    if (status.finished) {
+        document.getElementById("finished").style.display = "block"
+        document.getElementById("song").innerText = `${status.artist} - ${status.title}`
+        return
     }
 
-    setTimeout(()=>{
-        poll(id);
-    },1000);
-
+    setTimeout(() => {
+        poll(id)
+    }, 1000)
 }
 
 </script>

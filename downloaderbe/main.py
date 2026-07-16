@@ -64,6 +64,13 @@ def _set_config_from_args() -> None:
         )
     )
     arg_parser.add_argument(
+        "--output-location",
+        help=(
+            "Where should completed files go? (default: current directory.) "
+            "If --jellyfin-library is passed, this has no effect."
+        )
+    )
+    arg_parser.add_argument(
         "--acoustid-api-key",
         help=(
             "API key to access the Acoustid API (required). By default, this is read from "
@@ -78,6 +85,8 @@ def _set_config_from_args() -> None:
         config.JELLYFIN_LIBRARY = args.jellyfin_library
     if (args.download_location):
         config.DOWNLOAD_LOCATION = args.download_location
+    if (args.output_location):
+        config.OUTPUT_LOCATION = args.output_location
     if (args.acoustid_api_key):
         config.ACOUSTID_API_KEY = args.acoustid_api_key
 

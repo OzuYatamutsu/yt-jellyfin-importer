@@ -1,6 +1,6 @@
 from downloaderbe.song_metadata import SongMetadataLite
 from acoustid import match
-import config
+import downloaderbe.config as config
 
 
 def resolve_audio_fp(path_to_mp3: str) -> SongMetadataLite:

@@ -1,7 +1,7 @@
 from downloaderbe.song_metadata import SongMetadataLite
 from pathlib import Path
 from shutil import move
-import config
+import downloaderbe.config as config
 
 
 def move_file_to_jellyfin_dir(metadata: SongMetadataLite) -> None:

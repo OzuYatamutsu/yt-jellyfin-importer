@@ -1,15 +1,15 @@
 from downloaderfe.downloader_interface import create_job, get_status
-from django.shortcuts import render
+from django.http.request import HttpRequest
 from django.http import JsonResponse
-from django import Request
+from django.shortcuts import render
 from json import loads
 
 
-def index(request: Request):
+def index(request: HttpRequest):
     return render(request, "downloaderfe/index.html")
 
 
-def start_job(request: Request) -> JsonResponse:
+def start_job(request: HttpRequest) -> JsonResponse:
     youtube_link = loads(request.body)["link"]
 
     return JsonResponse({
@@ -17,5 +17,5 @@ def start_job(request: Request) -> JsonResponse:
     })
 
 
-def status(_request: Request, job_id: int) -> JsonResponse:
+def status(_request: HttpRequest, job_id: int) -> JsonResponse:
     return JsonResponse(get_status(job_id))

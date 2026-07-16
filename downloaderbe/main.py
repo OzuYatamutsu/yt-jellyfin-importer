@@ -7,7 +7,7 @@ from argparse import ArgumentParser
 from typing import Optional
 from os.path import basename
 from shutil import move
-import config
+import downloaderbe.config as config
 
 
 def main(youtube_link: str, jellyfin_lib_location: Optional[str]):

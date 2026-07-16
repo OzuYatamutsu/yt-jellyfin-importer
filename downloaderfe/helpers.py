@@ -6,3 +6,4 @@ def log(job: Job, percent: int, text: str) -> None:
 
     job.percent = percent
     job.log_line = text
+    job.save()

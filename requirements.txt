@@ -3,3 +3,4 @@ requests
 mutagen
 django
 gunicorn
+tempdir

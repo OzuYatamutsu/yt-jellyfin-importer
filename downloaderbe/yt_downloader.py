@@ -1,6 +1,6 @@
-from config import DOWNLOAD_LOCATION
 from subprocess import run
 from uuid import uuid4
+import downloaderbe.config as config
 
 
 def download_to_mp3(link: str) -> str:
@@ -16,7 +16,7 @@ def download_to_mp3(link: str) -> str:
         "yt-dlp",
         "--extract-audio", "--audio-format", "mp3",
         link,
-        "-o", f"{DOWNLOAD_LOCATION}/{output_id}.mp3"
+        "-o", f"{config.DOWNLOAD_LOCATION}/{output_id}.mp3"
     ])
 
-    return f"{DOWNLOAD_LOCATION}/{output_id}.mp3"
+    return f"{config.DOWNLOAD_LOCATION}/{output_id}.mp3"

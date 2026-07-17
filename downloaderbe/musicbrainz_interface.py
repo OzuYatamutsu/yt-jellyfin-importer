@@ -1,4 +1,5 @@
 from downloaderbe.song_metadata import SongMetadataLite
+from datetime import datetime
 from requests import get
 
 
@@ -18,7 +19,7 @@ def resolve_release(recording_id: str, metadata: SongMetadataLite) -> SongMetada
     metadata.track_num = data["releases"][0]["media"][0]["tracks"][0]["number"]
     metadata.album_artist = data["artist-credit"][0]["artist"]["name"]
     metadata.release_id = data["releases"][0]["id"]
-    metadata.release_year = data["first-release-date"]
+    metadata.release_year = datetime.strptime(data["first-release-date"].strip("()"), "%Y-%m-%d").year
     metadata.genres = [genre["name"] for genre in data.get("genres", [])]
     metadata.length = data["length"]
 

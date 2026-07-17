@@ -13,7 +13,7 @@ def write_id3_tags(metadata: SongMetadataLite, mp3_path: str):
     tags[TALB] = TALB(encoding=3, text=metadata.album)
     tags[TPE2] = TPE2(encoding=3, text=metadata.album_artist)
     tags[TRCK] = TRCK(encoding=3, text=str(metadata.track_num))
-    tags[TYER] = TYER(encoding=3, text=metadata.release_year)
+    tags[TYER] = TYER(encoding=3, text=str(metadata.release_year))
     tags[TLEN] = TLEN(encoding=3, text=str(metadata.length))
     tags[TCON] = TCON(encoding=3, text="/".join(metadata.genres))
     tags[APIC] = APIC(encoding=3, mime="image/jpeg", type=3, desc="Cover", data=metadata.album_art)

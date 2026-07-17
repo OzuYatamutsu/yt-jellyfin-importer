@@ -1,3 +1,4 @@
+yt-dlp
 pyacoustid
 requests
 mutagen

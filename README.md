@@ -13,6 +13,6 @@ To run, get an Acoustid API key [here](https://acoustid.org/new-application).
 ## Usage (django)
 ```
 source .venv/activate
-JELLYFIN_LIBRARY=<path-to-jellyfin-music-library> ACOUSID_API_KEY=<api-key> python mange.py runserver [portnum]
+JELLYFIN_LIBRARY=<path-to-jellyfin-music-library> ACOUSID_API_KEY=<api-key> python manage.py runserver [portnum]
 ```
 

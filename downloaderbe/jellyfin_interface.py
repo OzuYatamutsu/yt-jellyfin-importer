@@ -9,7 +9,7 @@ def move_file_to_jellyfin_dir(metadata: SongMetadataLite) -> str:
     target_path = Path(
         config.JELLYFIN_LIBRARY
         + f"/{metadata.album_artist}"
-        + f"/{metadata.album} ({metadata.release_year})"
+        + f"/{metadata.album}"
     )
     target_path.mkdir(
         parents=True, exist_ok=True
